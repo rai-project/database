@@ -3,6 +3,7 @@ package rethinkdb
 import (
 	"github.com/k0kubun/pp"
 	"github.com/rai-project/config"
+	"github.com/rai-project/database"
 	"github.com/rai-project/vipertags"
 )
 
@@ -37,7 +38,7 @@ func (a *rethinkdbConfig) Read() {
 		a.InitialCapacity = DefaultInitialCapacity
 	}
 	if a.MaxConnections == 0 {
-		a.MaxConnections = DefaultMaxConnections
+		a.MaxConnections = database.DefaultMaxConnections
 	}
 }
 

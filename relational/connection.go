@@ -5,14 +5,11 @@ import (
 	"strings"
 
 	"github.com/jinzhu/gorm"
-	_ "github.com/jinzhu/gorm/dialects/mysql"    // include mysql dialect
-	_ "github.com/jinzhu/gorm/dialects/postgres" // include postgres dialect
-	_ "github.com/jinzhu/gorm/dialects/sqlite"   // include postgres sqlite
 	"github.com/pkg/errors"
 	"github.com/rai-project/database"
 )
 
-type relationalDatabase struct {
+type relationalDBConnection struct {
 	dialect string
 	*gorm.DB
 	url    string
@@ -20,7 +17,7 @@ type relationalDatabase struct {
 	opts   database.ConnectionOptions
 }
 
-func NewDatabase(dialect string, url string, dbName string, opts ...database.ConnectionOption) (database.Connection, error) {
+func NewConnection(dialect string, url string, dbName string, opts ...database.ConnectionOption) (database.Connection, error) {
 	db, err := gorm.Open(dialect, url)
 	if err != nil {
 		return nil, errors.Wrapf(err, "Failed to connect to %v database.", dialect)
@@ -35,7 +32,7 @@ func NewDatabase(dialect string, url string, dbName string, opts ...database.Con
 
 	db.DB().SetMaxIdleConns(options.MaxConnections)
 
-	return &relationalDatabase{
+	return &relationalDBConnection{
 		dialect: dialect,
 		DB:      db,
 		url:     url,
@@ -43,14 +40,28 @@ func NewDatabase(dialect string, url string, dbName string, opts ...database.Con
 	}, nil
 }
 
-func (conn *relationalDatabase) Options() database.ConnectionOptions {
+func (conn *relationalDBConnection) Options() database.ConnectionOptions {
 	return conn.opts
 }
 
-func (conn *relationalDatabase) Close() error {
+func (conn *relationalDBConnection) Close() error {
 	return conn.Close()
 }
 
-func (conn *relationalDatabase) String() string {
+func (conn *relationalDBConnection) Name() string {
+	return conn.dbName
+}
+
+func (conn *relationalDBConnection) Create() error {
+	panic("Relational database create has not been implemented....")
+	return nil
+}
+
+func (conn *relationalDBConnection) Delete() error {
+	panic("Relational database delete has not been implemented....")
+	return nil
+}
+
+func (conn *relationalDBConnection) String() string {
 	return strings.Title(conn.dialect)
 }

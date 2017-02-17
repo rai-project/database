@@ -7,6 +7,10 @@ import (
 	"encoding/base64"
 )
 
+var (
+	DefaultMaxConnections = 30
+)
+
 type ConnectionOptions struct {
 	Endpoints      []string
 	Username       string

@@ -13,7 +13,6 @@ const (
 
 var (
 	DefaultInitialCapacity = 10
-	DefaultMaxConnections  = 30
 )
 
 func AuthKey(s string) database.ConnectionOption {

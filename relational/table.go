@@ -7,12 +7,12 @@ import (
 )
 
 type relationalTable struct {
-	db        *relationalDatabase
+	db        *relationalDBConnection
 	tableName string
 }
 
 func NewTable(conn database.Connection, tableName string) (database.Table, error) {
-	rconn, ok := conn.(*relationalDatabase)
+	rconn, ok := conn.(*relationalDBConnection)
 	if !ok {
 		return nil, errors.New("Invalid database connection input. Expecting a relationaldb connection instance.")
 	}
