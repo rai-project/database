@@ -3,6 +3,7 @@ package database
 type Connection interface {
 	Options() ConnectionOptions
 	Close() error
+	String() string
 }
 
 type Database interface {

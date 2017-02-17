@@ -20,11 +20,12 @@ func NewConnection(opts ...database.ConnectionOption) (database.Connection, erro
 	}
 
 	options := database.ConnectionOptions{
-		Endpoints: Config.Endpoints,
-		Username:  Config.Username,
-		Password:  pass,
-		TLSConfig: nil,
-		Context:   context.Background(),
+		Endpoints:      Config.Endpoints,
+		Username:       Config.Username,
+		Password:       pass,
+		TLSConfig:      nil,
+		MaxConnections: Config.MaxConnections,
+		Context:        context.Background(),
 	}
 
 	if Config.Cert != "" {
@@ -50,10 +51,7 @@ func NewConnection(opts ...database.ConnectionOption) (database.Connection, erro
 		initialCapacity = DefaultInitialCapacity
 	}
 
-	maxConnections, ok := options.Context.Value(maxConnectionsKey).(int)
-	if !ok {
-		maxConnections = DefaultMaxConnections
-	}
+	maxConnections := options.MaxConnections
 
 	sess, err := r.Connect(r.ConnectOpts{
 		Address:    options.Endpoints[0],
@@ -81,4 +79,8 @@ func (conn *rethinkConnection) Options() database.ConnectionOptions {
 
 func (conn *rethinkConnection) Close() error {
 	return conn.session.Close()
+}
+
+func (conn *rethinkConnection) String() string {
+	return "RethinkDB"
 }

@@ -8,11 +8,12 @@ import (
 )
 
 type ConnectionOptions struct {
-	Endpoints []string
-	Username  string
-	Password  string
-	TLSConfig *tls.Config
-	Context   context.Context
+	Endpoints      []string
+	Username       string
+	Password       string
+	TLSConfig      *tls.Config
+	MaxConnections int
+	Context        context.Context
 }
 
 type ConnectionOption func(*ConnectionOptions)
@@ -65,5 +66,11 @@ func TLSCertificate(s string) ConnectionOption {
 func TLSConfig(t *tls.Config) ConnectionOption {
 	return func(o *ConnectionOptions) {
 		o.TLSConfig = t
+	}
+}
+
+func MaxConnections(n int) ConnectionOption {
+	return func(o *ConnectionOptions) {
+		o.MaxConnections = n
 	}
 }
