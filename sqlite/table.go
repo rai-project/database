@@ -1,4 +1,4 @@
-package mysql
+package sqlite
 
 import (
 	"errors"
@@ -8,9 +8,9 @@ import (
 )
 
 func NewTable(db database.Database, tableName string) (database.Table, error) {
-	_, ok := db.(*mysqlDatabase)
+	_, ok := db.(*sqliteDatabase)
 	if !ok {
-		return nil, errors.New("invalid database input. Expecting a mysql database instance")
+		return nil, errors.New("invalid database input. Expecting a sqlite database instance")
 	}
 	return relational.NewTable(db, tableName)
 }

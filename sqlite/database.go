@@ -1,27 +1,27 @@
-package mysql
+package sqlite
 
 import (
 	"context"
+	"path/filepath"
 
-	_ "github.com/jinzhu/gorm/dialects/mysql"
+	_ "github.com/jinzhu/gorm/dialects/postgres"
 	"github.com/rai-project/database"
 	"github.com/rai-project/database/relational"
-	"upper.io/db.v3/mysql"
+	"upper.io/db.v3/sqlite"
 )
 
 const (
-	gormDialect = "mysql"
+	gormDialect = "sqlite"
 )
 
-type mysqlDatabase struct {
+type sqliteDatabase struct {
 	database.Database
 }
 
 func NewDatabase(databaseName string, opts ...database.Option) (database.Database, error) {
+
 	options := database.Options{
 		Endpoints:      Config.Endpoints,
-		Username:       Config.Username,
-		Password:       Config.Password,
 		TLSConfig:      nil,
 		MaxConnections: Config.MaxConnections,
 		Context:        context.Background(),
@@ -31,20 +31,17 @@ func NewDatabase(databaseName string, opts ...database.Option) (database.Databas
 		o(&options)
 	}
 
-	connectionURL := mysql.ConnectionURL{
-		User:     options.Username,
-		Password: options.Password,
-		Host:     options.Endpoints[0],
-		Database: databaseName,
+	connectionURL := sqlite.ConnectionURL{
+		Database: filepath.Join(options.Endpoints[0], databaseName),
 	}
 
 	d, err := relational.NewDatabase(gormDialect, databaseName, connectionURL, options)
 	if err != nil {
 		return nil, err
 	}
-	return &mysqlDatabase{d}, nil
+	return &sqliteDatabase{d}, nil
 }
 
-func (conn *mysqlDatabase) String() string {
-	return "MySQL"
+func (conn *sqliteDatabase) String() string {
+	return "SQLite"
 }
