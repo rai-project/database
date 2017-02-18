@@ -13,17 +13,13 @@ type rethinkTable struct {
 	tableName string
 }
 
-func NewTable(conn database.Connection, db database.Database, tableName string) (database.Table, error) {
-	rconn, ok := conn.(*rethinkConnection)
-	if !ok {
-		return nil, errors.New("Invalid database connection input. Expecting a rethinkdb connection instance.")
-	}
+func NewTable(db database.Database, tableName string) (database.Table, error) {
 	rdb, ok := db.(*rethinkDatabase)
 	if !ok {
 		return nil, errors.New("Invalid database input. Expecting a rethinkdb database instance.")
 	}
 	return &rethinkTable{
-		session:   rconn.session,
+		session:   rdb.session,
 		dbName:    rdb.name,
 		tableName: tableName,
 	}, nil
@@ -33,7 +29,7 @@ func (tbl *rethinkTable) Name() string {
 	return tbl.tableName
 }
 
-func (tbl *rethinkTable) Create() error {
+func (tbl *rethinkTable) Create(interface{}) error {
 	return r.DB(tbl.dbName).TableCreate(tbl.tableName).Exec(tbl.session)
 }
 

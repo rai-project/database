@@ -1,20 +1,14 @@
 package database
 
-type Connection interface {
-	Options() ConnectionOptions
+type Database interface {
+	Options() Options
 	Close() error
 	String() string
 }
 
-type Database interface {
-	Name() string
-	Create() error
-	Delete() error
-}
-
 type Table interface {
 	Name() string
-	Create() error
+	Create(e interface{}) error
 	Delete() error
 	Insert(elem interface{}) error
 }

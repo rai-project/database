@@ -11,10 +11,10 @@ type relationalTable struct {
 	tableName string
 }
 
-func NewTable(conn database.Connection, tableName string) (database.Table, error) {
+func NewTable(conn database.Database, tableName string) (database.Table, error) {
 	rconn, ok := conn.(*relationalDBConnection)
 	if !ok {
-		return nil, errors.New("Invalid database connection input. Expecting a relationaldb connection instance.")
+		return nil, errors.New("Invalid database Database input. Expecting a relationaldb Database instance.")
 	}
 
 	return &relationalTable{

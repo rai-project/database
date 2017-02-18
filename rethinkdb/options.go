@@ -15,14 +15,14 @@ var (
 	DefaultInitialCapacity = 10
 )
 
-func AuthKey(s string) database.ConnectionOption {
-	return func(o *database.ConnectionOptions) {
+func AuthKey(s string) database.Option {
+	return func(o *database.Options) {
 		o.Context = context.WithValue(o.Context, authKeyKey, s)
 	}
 }
 
-func InitialCapacity(n int) database.ConnectionOption {
-	return func(o *database.ConnectionOptions) {
+func InitialCapacity(n int) database.Option {
+	return func(o *database.Options) {
 		o.Context = context.WithValue(o.Context, initialCapacityKey, n)
 	}
 }

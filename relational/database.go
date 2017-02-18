@@ -14,16 +14,16 @@ type relationalDBConnection struct {
 	*gorm.DB
 	url    string
 	dbName string
-	opts   database.ConnectionOptions
+	opts   database.Options
 }
 
-func NewConnection(dialect string, url string, dbName string, opts ...database.ConnectionOption) (database.Connection, error) {
+func NewConnection(dialect string, url string, dbName string, opts ...database.Option) (database.Database, error) {
 	db, err := gorm.Open(dialect, url)
 	if err != nil {
 		return nil, errors.Wrapf(err, "Failed to connect to %v database.", dialect)
 	}
 
-	options := database.ConnectionOptions{
+	options := database.Options{
 		Context: context.Background(),
 	}
 	for _, o := range opts {
@@ -40,7 +40,7 @@ func NewConnection(dialect string, url string, dbName string, opts ...database.C
 	}, nil
 }
 
-func (conn *relationalDBConnection) Options() database.ConnectionOptions {
+func (conn *relationalDBConnection) Options() database.Options {
 	return conn.opts
 }
 

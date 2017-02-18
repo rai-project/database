@@ -11,7 +11,7 @@ var (
 	DefaultMaxConnections = 30
 )
 
-type ConnectionOptions struct {
+type Options struct {
 	Endpoints      []string
 	Username       string
 	Password       string
@@ -20,35 +20,35 @@ type ConnectionOptions struct {
 	Context        context.Context
 }
 
-type ConnectionOption func(*ConnectionOptions)
+type Option func(*Options)
 
-func Username(s string) ConnectionOption {
-	return func(o *ConnectionOptions) {
+func Username(s string) Option {
+	return func(o *Options) {
 		o.Username = s
 	}
 }
 
-func Password(s string) ConnectionOption {
-	return func(o *ConnectionOptions) {
+func Password(s string) Option {
+	return func(o *Options) {
 		o.Password = s
 	}
 }
 
-func UsernamePassword(u string, p string) ConnectionOption {
-	return func(o *ConnectionOptions) {
+func UsernamePassword(u string, p string) Option {
+	return func(o *Options) {
 		o.Username = u
 		o.Password = p
 	}
 }
 
-func Endpoints(addrs []string) ConnectionOption {
-	return func(o *ConnectionOptions) {
+func Endpoints(addrs []string) Option {
+	return func(o *Options) {
 		o.Endpoints = addrs
 	}
 }
 
-func TLSCertificate(s string) ConnectionOption {
-	return func(o *ConnectionOptions) {
+func TLSCertificate(s string) Option {
+	return func(o *Options) {
 		var roots *x509.CertPool
 		if o.TLSConfig != nil && o.TLSConfig.RootCAs != nil {
 			roots = o.TLSConfig.RootCAs
@@ -67,14 +67,14 @@ func TLSCertificate(s string) ConnectionOption {
 	}
 }
 
-func TLSConfig(t *tls.Config) ConnectionOption {
-	return func(o *ConnectionOptions) {
+func TLSConfig(t *tls.Config) Option {
+	return func(o *Options) {
 		o.TLSConfig = t
 	}
 }
 
-func MaxConnections(n int) ConnectionOption {
-	return func(o *ConnectionOptions) {
+func MaxConnections(n int) Option {
+	return func(o *Options) {
 		o.MaxConnections = n
 	}
 }

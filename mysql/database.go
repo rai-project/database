@@ -13,10 +13,10 @@ type mysqlDatabase struct {
 	name    string
 }
 
-func NewDatabase(conn database.Connection, name string) (database.Database, error) {
+func NewDatabase(conn database.Database, name string) (database.Database, error) {
 	sess, ok := conn.(*mysqlConnection)
 	if !ok {
-		return nil, errors.New("Invalid database connection input. Expecting a mysql connection instance.")
+		return nil, errors.New("Invalid database Database input. Expecting a mysql Database instance.")
 	}
 
 	sess.settings.Database = name

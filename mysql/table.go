@@ -15,10 +15,10 @@ type mysqlTable struct {
 	tableName string
 }
 
-func NewTable(conn database.Connection, db database.Database, tableName string) (database.Table, error) {
+func NewTable(conn database.Database, db database.Database, tableName string) (database.Table, error) {
 	_, ok := conn.(*mysqlConnection)
 	if !ok {
-		return nil, errors.New("Invalid database connection input. Expecting a mysql connection instance.")
+		return nil, errors.New("Invalid database Database input. Expecting a mysql Database instance.")
 	}
 	rdb, ok := db.(*mysqlDatabase)
 	if !ok {

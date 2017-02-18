@@ -15,13 +15,13 @@ const (
 
 type mysqlConnection struct {
 	conn     sqlbuilder.Database
-	opts     database.ConnectionOptions
+	opts     database.Options
 	settings *mysql.ConnectionURL
 }
 
-func NewConnection(opts ...database.ConnectionOption) (database.Connection, error) {
+func NewConnection(opts ...database.Option) (database.Database, error) {
 
-	options := database.ConnectionOptions{
+	options := database.Options{
 		Endpoints:      Config.Endpoints,
 		Username:       Config.Username,
 		Password:       Config.Password,
@@ -48,7 +48,7 @@ func NewConnection(opts ...database.ConnectionOption) (database.Connection, erro
 	}, nil
 }
 
-func (conn *mysqlConnection) Options() database.ConnectionOptions {
+func (conn *mysqlConnection) Options() database.Options {
 	return conn.opts
 }
 
@@ -60,5 +60,5 @@ func (conn *mysqlConnection) Close() error {
 }
 
 func (conn *mysqlConnection) String() string {
-	return "RethinkDB"
+	return "MySQL"
 }
