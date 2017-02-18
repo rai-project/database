@@ -8,7 +8,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/cznic/ql"
 	"github.com/jinzhu/gorm"
 )
 
@@ -123,11 +122,7 @@ func (qlDialect) LastInsertIDReturningSuffix(tableName, columnName string) strin
 }
 
 func (s qlDialect) CurrentDatabase() (name string) {
-	d, ok := s.db.(*ql.DB)
-	if !ok {
-		return
-	}
-	name = d.Name()
+	return
 }
 
 func init() {

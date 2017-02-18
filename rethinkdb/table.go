@@ -20,7 +20,7 @@ func NewTable(db database.Database, tableName string) (database.Table, error) {
 	}
 	return &rethinkTable{
 		session:   rdb.session,
-		dbName:    rdb.name,
+		dbName:    rdb.databaseName,
 		tableName: tableName,
 	}, nil
 }

@@ -70,21 +70,21 @@ func NewDatabase(databaseName string, opts ...database.Option) (database.Databas
 
 	r.DBCreate(databaseName).Exec(sess)
 
-	return &rethinkConnection{
+	return &rethinkDatabase{
 		session:      sess,
 		databaseName: databaseName,
 		opts:         options,
 	}, nil
 }
 
-func (conn *rethinkConnection) Options() database.Options {
+func (conn *rethinkDatabase) Options() database.Options {
 	return conn.opts
 }
 
-func (conn *rethinkConnection) Close() error {
+func (conn *rethinkDatabase) Close() error {
 	return conn.session.Close()
 }
 
-func (conn *rethinkConnection) String() string {
+func (conn *rethinkDatabase) String() string {
 	return "RethinkDB"
 }
