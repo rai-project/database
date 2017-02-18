@@ -3,9 +3,9 @@ package postgres
 import (
 	"context"
 
-	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 	"github.com/rai-project/database"
+	"github.com/rai-project/database/relational"
 	"upper.io/db.v3/postgresql"
 )
 
@@ -14,10 +14,7 @@ const (
 )
 
 type postgresDatabase struct {
-	conn         *gorm.DB
-	databaseName string
-	opts         database.Options
-	settings     postgresql.ConnectionURL
+	database.Database
 }
 
 func NewDatabase(databaseName string, opts ...database.Option) (database.Database, error) {
@@ -35,36 +32,18 @@ func NewDatabase(databaseName string, opts ...database.Option) (database.Databas
 		o(&options)
 	}
 
-	settings := postgresql.ConnectionURL{
+	connectionURL := postgresql.ConnectionURL{
 		User:     options.Username,
 		Password: options.Password,
 		Host:     options.Endpoints[0],
 		Database: databaseName,
 	}
 
-	c, err := gorm.Open(gormDialect, settings.String())
+	d, err := relational.NewDatabase(gormDialect, databaseName, connectionURL, options)
 	if err != nil {
 		return nil, err
 	}
-
-	maxConnections := options.MaxConnections
-
-	c.DB().SetMaxIdleConns(maxConnections)
-
-	return &postgresDatabase{
-		conn:         c,
-		databaseName: databaseName,
-		opts:         options,
-		settings:     settings,
-	}, nil
-}
-
-func (conn *postgresDatabase) Options() database.Options {
-	return conn.opts
-}
-
-func (conn *postgresDatabase) Close() error {
-	return conn.conn.Close()
+	return &postgresDatabase{d}, nil
 }
 
 func (conn *postgresDatabase) String() string {

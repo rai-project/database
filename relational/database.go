@@ -1,67 +1,47 @@
 package relational
 
 import (
-	"context"
 	"strings"
 
 	"github.com/jinzhu/gorm"
-	"github.com/pkg/errors"
 	"github.com/rai-project/database"
+	db "upper.io/db.v3"
 )
 
-type relationalDBConnection struct {
-	dialect string
-	*gorm.DB
-	url    string
-	dbName string
-	opts   database.Options
+type relationalDatabase struct {
+	conn          *gorm.DB
+	databaseName  string
+	opts          database.Options
+	gormDialect   string
+	connectionURL db.ConnectionURL
 }
 
-func NewConnection(dialect string, url string, dbName string, opts ...database.Option) (database.Database, error) {
-	db, err := gorm.Open(dialect, url)
+func NewDatabase(gormDialect string, databaseName string, connectionURL db.ConnectionURL, opts database.Options) (database.Database, error) {
+	c, err := gorm.Open(gormDialect, connectionURL.String())
 	if err != nil {
-		return nil, errors.Wrapf(err, "Failed to connect to %v database.", dialect)
+		return nil, err
 	}
 
-	options := database.Options{
-		Context: context.Background(),
-	}
-	for _, o := range opts {
-		o(&options)
-	}
+	maxConnections := opts.MaxConnections
+	c.DB().SetMaxIdleConns(maxConnections)
 
-	db.DB().SetMaxIdleConns(options.MaxConnections)
-
-	return &relationalDBConnection{
-		dialect: dialect,
-		DB:      db,
-		url:     url,
-		opts:    options,
+	return &relationalDatabase{
+		conn:          c,
+		databaseName:  databaseName,
+		opts:          opts,
+		gormDialect:   gormDialect,
+		connectionURL: connectionURL,
 	}, nil
 }
 
-func (conn *relationalDBConnection) Options() database.Options {
+func (conn *relationalDatabase) Options() database.Options {
 	return conn.opts
 }
 
-func (conn *relationalDBConnection) Close() error {
-	return conn.Close()
+func (conn *relationalDatabase) Close() error {
+	return conn.conn.Close()
 }
 
-func (conn *relationalDBConnection) Name() string {
-	return conn.dbName
-}
-
-func (conn *relationalDBConnection) Create() error {
-	panic("Relational database create has not been implemented....")
-	return nil
-}
-
-func (conn *relationalDBConnection) Delete() error {
-	panic("Relational database delete has not been implemented....")
-	return nil
-}
-
-func (conn *relationalDBConnection) String() string {
-	return strings.Title(conn.dialect)
+func (conn *relationalDatabase) String() string {
+	return strings.Title(conn.gormDialect)
 }
