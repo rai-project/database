@@ -1,29 +1,6 @@
 hash: 9c51be3ecad08176169e5e2d9d0d20abf031ae60f69e51a28934b9b83b4937cb
-updated: 2017-02-22T18:09:04.674874718-06:00
+updated: 2017-02-22T18:30:38.838853832-06:00
 imports:
-- name: github.com/aws/aws-sdk-go
-  version: 90dec2183a5f5458ee79cbaf4b8e9ab910bc81a6
-  subpackages:
-  - aws
-  - aws/awserr
-  - aws/awsutil
-  - aws/client
-  - aws/client/metadata
-  - aws/corehandlers
-  - aws/credentials
-  - aws/credentials/ec2rolecreds
-  - aws/defaults
-  - aws/ec2metadata
-  - aws/request
-  - aws/session
-  - aws/signer/v4
-  - private/endpoints
-  - private/protocol
-  - private/protocol/json/jsonutil
-  - private/protocol/jsonrpc
-  - private/protocol/rest
-  - private/waiter
-  - service/kinesis
 - name: github.com/cenkalti/backoff
   version: 32cd0c5b3aef12c76ed64aaf678f6c79736be7dc
 - name: github.com/cznic/b
@@ -53,18 +30,14 @@ imports:
   version: 2533cb5b45cc6c07421468ce262899ddc9d53fb7
 - name: github.com/edsrzf/mmap-go
   version: 935e0e8a636ca4ba70b713f3e38a19e1b77739e8
-- name: github.com/evalphobia/logrus_kinesis
-  version: 3a9524d4e5540cc81c920ee17bd8ad1d47437f5d
 - name: github.com/fatih/color
-  version: 5ec5d9d3c2cf82e9688b34e9bc27a94d616a7193
+  version: 7824417a424b65227be8ac9b14d545a7f3e6c3f0
 - name: github.com/fatih/structs
   version: a720dfa8df582c51dee1b36feabb906bde1588bd
 - name: github.com/fsnotify/fsnotify
   version: a904159b9206978bb6d53fcc7a769e5cd726c737
 - name: github.com/GeertJohan/go-sourcepath
   version: 83e8b8723a9bf39481216e80575f4854c63ece4a
-- name: github.com/go-ini/ini
-  version: 74bdc99692c3408cb103221e38675ce8fda0a718
 - name: github.com/go-sql-driver/mysql
   version: 2e00b5cd70399450106cec6431c2e2ce3cae5034
 - name: github.com/golang/protobuf
@@ -91,8 +64,6 @@ imports:
   - dialects/postgres
 - name: github.com/jinzhu/inflection
   version: 1c35d901db3da928c72a72d8458480cc9ade058f
-- name: github.com/jmespath/go-jmespath
-  version: bd40a432e4c76585ef6b72d3fd96fb9b6dc7b68d
 - name: github.com/k0kubun/pp
   version: 027a6d1765d673d337e687394dbe780dd64e2a1e
 - name: github.com/lib/pq
@@ -103,7 +74,7 @@ imports:
 - name: github.com/magiconair/properties
   version: b3b15ef068fd0b17ddf408a23669f20811d194d2
 - name: github.com/mattn/go-colorable
-  version: d898aa9fb31c91f35dd28ca75db377eff023c076
+  version: 5411d3eea5978e6cdc258b30de592b60df6aba96
 - name: github.com/mattn/go-isatty
   version: dda3de49cbfcec471bd7a70e6cc01fcc3ff90109
 - name: github.com/mattn/go-sqlite3
@@ -119,11 +90,11 @@ imports:
 - name: github.com/pkg/errors
   version: 645ef00459ed84a119197bfb8d8205042c6df63d
 - name: github.com/rai-project/config
-  version: 0e314b8ace535477c437c3dd3ac5c0bf23f55eb9
+  version: 6c3f625b8d8fe37eb9f082600745bcd9c64a80ee
 - name: github.com/rai-project/godotenv
   version: 726cc8b906e3d31c70a9671c90a13716a8d3f50d
 - name: github.com/rai-project/logger
-  version: c2cee355c0b630c5f6c2c169bdf541b32c9f8b06
+  version: 5bf48710226f520f0df1f3a367319b7d8c7298fd
 - name: github.com/rai-project/vipertags
   version: 997637b503048b1f8d2a1126ff497db620632608
 - name: github.com/Sirupsen/logrus
@@ -153,7 +124,7 @@ imports:
   subpackages:
   - context
 - name: golang.org/x/sys
-  version: b699b7032584f0953262cb2788a0ca19bb494703
+  version: e24f485414aeafb646f6fca458b0bf869c0880a1
   subpackages:
   - unix
 - name: golang.org/x/text
