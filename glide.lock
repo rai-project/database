@@ -1,5 +1,5 @@
 hash: 9c51be3ecad08176169e5e2d9d0d20abf031ae60f69e51a28934b9b83b4937cb
-updated: 2017-02-22T18:30:38.838853832-06:00
+updated: 2017-02-22T18:34:06.084174232-06:00
 imports:
 - name: github.com/cenkalti/backoff
   version: 32cd0c5b3aef12c76ed64aaf678f6c79736be7dc
@@ -90,11 +90,11 @@ imports:
 - name: github.com/pkg/errors
   version: 645ef00459ed84a119197bfb8d8205042c6df63d
 - name: github.com/rai-project/config
-  version: 6c3f625b8d8fe37eb9f082600745bcd9c64a80ee
+  version: 011efcd9cdd5fe1d995773919da5a07e020d37c3
 - name: github.com/rai-project/godotenv
   version: 726cc8b906e3d31c70a9671c90a13716a8d3f50d
 - name: github.com/rai-project/logger
-  version: 5bf48710226f520f0df1f3a367319b7d8c7298fd
+  version: 603c4893a5f11e787f6e9ee1b8f59cbc45a4a631
 - name: github.com/rai-project/vipertags
   version: 997637b503048b1f8d2a1126ff497db620632608
 - name: github.com/Sirupsen/logrus
