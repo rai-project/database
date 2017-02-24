@@ -42,6 +42,10 @@ func NewDatabase(databaseName string, opts ...database.Option) (database.Databas
 	}, nil
 }
 
+func (conn *qlDatabase) Session() interface{} {
+	return conn.session
+}
+
 func (conn *qlDatabase) Options() database.Options {
 	return conn.opts
 }

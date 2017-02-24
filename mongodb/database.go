@@ -47,6 +47,10 @@ func NewDatabase(databaseName string, opts ...database.Option) (database.Databas
 	}, nil
 }
 
+func (conn *mongoDatabase) Session() interface{} {
+	return conn.session
+}
+
 func (conn *mongoDatabase) Options() database.Options {
 	return conn.opts
 }

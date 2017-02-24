@@ -77,6 +77,10 @@ func NewDatabase(databaseName string, opts ...database.Option) (database.Databas
 	}, nil
 }
 
+func (conn *rethinkDatabase) Session() interface{} {
+	return conn.session
+}
+
 func (conn *rethinkDatabase) Options() database.Options {
 	return conn.opts
 }

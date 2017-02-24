@@ -2,6 +2,7 @@ package database
 
 type Database interface {
 	Options() Options
+	Session() interface{}
 	Close() error
 	String() string
 }

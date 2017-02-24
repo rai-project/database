@@ -34,6 +34,10 @@ func NewDatabase(gormDialect string, databaseName string, connectionURL db.Conne
 	}, nil
 }
 
+func (conn *relationalDatabase) Session() interface{} {
+	return conn.conn
+}
+
 func (conn *relationalDatabase) Options() database.Options {
 	return conn.opts
 }
