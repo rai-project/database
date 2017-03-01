@@ -13,6 +13,8 @@ type mysqldbConfig struct {
 	Username       string   `json:"username" config:"database.username"`
 	Password       string   `json:"password" config:"database.password"`
 	MaxConnections int      `json:"max_connections" config:"database.max_connections" default:"0"`
+	Certificate    string   `json:"certificate" config:"database.certificate" default:""`
+	DatabaseName   string   `json:"database_name" config:"database.database_name"`
 }
 
 var (

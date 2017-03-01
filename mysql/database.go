@@ -27,6 +27,10 @@ func NewDatabase(databaseName string, opts ...database.Option) (database.Databas
 		Context:        context.Background(),
 	}
 
+	if Config.Certificate != "" {
+		database.TLSCertificate(Config.Certificate)(&options)
+	}
+
 	for _, o := range opts {
 		o(&options)
 	}
