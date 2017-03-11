@@ -8,7 +8,7 @@ import (
 )
 
 type mongodbConfig struct {
-	Provider        string   `json:"provider" config:"database.provider" default:"mongodb"`
+	Provider        string   `json:"provider" config:"database.provider"`
 	Endpoints       []string `json:"endpoints" config:"database.endpoints"`
 	Username        string   `json:"username" config:"database.username"`
 	Password        string   `json:"password" config:"database.password"`

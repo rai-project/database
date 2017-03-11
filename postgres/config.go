@@ -8,7 +8,7 @@ import (
 )
 
 type postgresdbConfig struct {
-	Provider       string   `json:"provider" config:"database.provider" default:"postgres"`
+	Provider       string   `json:"provider" config:"database.provider"`
 	Endpoints      []string `json:"endpoints" config:"database.endpoints"`
 	Username       string   `json:"username" config:"database.username"`
 	Password       string   `json:"password" config:"database.password"`

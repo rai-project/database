@@ -8,7 +8,7 @@ import (
 )
 
 type rethinkdbConfig struct {
-	Provider        string   `json:"provider" config:"database.provider" default:"rethinkdb"`
+	Provider        string   `json:"provider" config:"database.provider"`
 	Endpoints       []string `json:"endpoints" config:"database.endpoints"`
 	Username        string   `json:"username" config:"database.username"`
 	Password        string   `json:"password" config:"database.password"`

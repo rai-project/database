@@ -8,7 +8,7 @@ import (
 )
 
 type sqlitedbConfig struct {
-	Provider       string   `json:"provider" config:"database.provider" default:"sqlite"`
+	Provider       string   `json:"provider" config:"database.provider"`
 	Endpoints      []string `json:"endpoints" config:"database.endpoints"`
 	MaxConnections int      `json:"max_connections" config:"database.max_connections" default:"0"`
 }
