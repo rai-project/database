@@ -8,24 +8,28 @@ import (
 )
 
 type mongodbConfig struct {
-	Provider        string   `json:"provider" config:"database.provider"`
-	Endpoints       []string `json:"endpoints" config:"database.endpoints"`
-	Username        string   `json:"username" config:"database.username"`
-	Password        string   `json:"password" config:"database.password"`
-	Cert            string   `json:"cert" config:"database.cert"`
-	InitialCapacity int      `json:"initial_capacity" config:"database.initial_capacity" default:"0"`
-	MaxConnections  int      `json:"max_connections" config:"database.max_connections" default:"0"`
+	Provider        string        `json:"provider" config:"database.provider"`
+	Endpoints       []string      `json:"endpoints" config:"database.endpoints"`
+	Username        string        `json:"username" config:"database.username"`
+	Password        string        `json:"password" config:"database.password"`
+	Cert            string        `json:"cert" config:"database.cert"`
+	InitialCapacity int           `json:"initial_capacity" config:"database.initial_capacity" default:"0"`
+	MaxConnections  int           `json:"max_connections" config:"database.max_connections" default:"0"`
+	done            chan struct{} `json:"-" config:"-"`
 }
 
 var (
-	Config = &mongodbConfig{}
+	Config = &mongodbConfig{
+		done: make(chan struct{}),
+	}
 )
 
 func (mongodbConfig) ConfigName() string {
 	return "MongoDB"
 }
 
-func (mongodbConfig) SetDefaults() {
+func (a *mongodbConfig) SetDefaults() {
+	vipertags.SetDefaults(a)
 }
 
 func (a *mongodbConfig) Read() {
@@ -33,6 +37,10 @@ func (a *mongodbConfig) Read() {
 	if a.MaxConnections == 0 {
 		a.MaxConnections = database.DefaultMaxConnections
 	}
+}
+
+func (c mongodbConfig) Wait() {
+	<-c.done
 }
 
 func (c mongodbConfig) String() string {

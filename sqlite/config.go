@@ -8,20 +8,24 @@ import (
 )
 
 type sqlitedbConfig struct {
-	Provider       string   `json:"provider" config:"database.provider"`
-	Endpoints      []string `json:"endpoints" config:"database.endpoints"`
-	MaxConnections int      `json:"max_connections" config:"database.max_connections" default:"0"`
+	Provider       string        `json:"provider" config:"database.provider"`
+	Endpoints      []string      `json:"endpoints" config:"database.endpoints"`
+	MaxConnections int           `json:"max_connections" config:"database.max_connections" default:"0"`
+	done           chan struct{} `json:"-" config:"-"`
 }
 
 var (
-	Config = &sqlitedbConfig{}
+	Config = &sqlitedbConfig{
+		done: make(chan struct{}),
+	}
 )
 
 func (sqlitedbConfig) ConfigName() string {
 	return "SQLite"
 }
 
-func (sqlitedbConfig) SetDefaults() {
+func (a *sqlitedbConfig) SetDefaults() {
+	vipertags.SetDefaults(a)
 }
 
 func (a *sqlitedbConfig) Read() {
@@ -29,6 +33,10 @@ func (a *sqlitedbConfig) Read() {
 	if a.MaxConnections == 0 {
 		a.MaxConnections = database.DefaultMaxConnections
 	}
+}
+
+func (c sqlitedbConfig) Wait() {
+	<-c.done
 }
 
 func (c sqlitedbConfig) String() string {

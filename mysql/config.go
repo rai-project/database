@@ -8,24 +8,28 @@ import (
 )
 
 type mysqldbConfig struct {
-	Provider       string   `json:"provider" config:"database.provider"`
-	Endpoints      []string `json:"endpoints" config:"database.endpoints"`
-	Username       string   `json:"username" config:"database.username"`
-	Password       string   `json:"password" config:"database.password"`
-	MaxConnections int      `json:"max_connections" config:"database.max_connections" default:"0"`
-	Certificate    string   `json:"certificate" config:"database.certificate" default:""`
-	DatabaseName   string   `json:"database_name" config:"database.database_name"`
+	Provider       string        `json:"provider" config:"database.provider"`
+	Endpoints      []string      `json:"endpoints" config:"database.endpoints"`
+	Username       string        `json:"username" config:"database.username"`
+	Password       string        `json:"password" config:"database.password"`
+	MaxConnections int           `json:"max_connections" config:"database.max_connections" default:"0"`
+	Certificate    string        `json:"certificate" config:"database.certificate" default:""`
+	DatabaseName   string        `json:"database_name" config:"database.database_name"`
+	done           chan struct{} `json:"-" config:"-"`
 }
 
 var (
-	Config = &mysqldbConfig{}
+	Config = &mysqldbConfig{
+		done: make(chan struct{}),
+	}
 )
 
 func (mysqldbConfig) ConfigName() string {
 	return "MySQL"
 }
 
-func (mysqldbConfig) SetDefaults() {
+func (a *mysqldbConfig) SetDefaults() {
+	vipertags.SetDefaults(a)
 }
 
 func (a *mysqldbConfig) Read() {
@@ -33,6 +37,10 @@ func (a *mysqldbConfig) Read() {
 	if a.MaxConnections == 0 {
 		a.MaxConnections = database.DefaultMaxConnections
 	}
+}
+
+func (c secretConfig) Wait() {
+	<-c.done
 }
 
 func (c mysqldbConfig) String() string {
