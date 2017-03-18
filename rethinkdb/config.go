@@ -34,6 +34,7 @@ func (a *rethinkdbConfig) SetDefaults() {
 }
 
 func (a *rethinkdbConfig) Read() {
+	defer close(a.done)
 	vipertags.Fill(a)
 	if a.AuthKey == "" {
 		a.AuthKey = a.Password

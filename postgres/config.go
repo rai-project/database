@@ -33,6 +33,7 @@ func (a *postgresdbConfig) SetDefaults() {
 }
 
 func (a *postgresdbConfig) Read() {
+	defer close(a.done)
 	vipertags.Fill(a)
 	if a.MaxConnections == 0 {
 		a.MaxConnections = database.DefaultMaxConnections

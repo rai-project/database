@@ -29,6 +29,7 @@ func (a *sqlitedbConfig) SetDefaults() {
 }
 
 func (a *sqlitedbConfig) Read() {
+	defer close(a.done)
 	vipertags.Fill(a)
 	if a.MaxConnections == 0 {
 		a.MaxConnections = database.DefaultMaxConnections

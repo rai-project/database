@@ -33,6 +33,7 @@ func (a *mongodbConfig) SetDefaults() {
 }
 
 func (a *mongodbConfig) Read() {
+	defer close(a.done)
 	vipertags.Fill(a)
 	if a.MaxConnections == 0 {
 		a.MaxConnections = database.DefaultMaxConnections
