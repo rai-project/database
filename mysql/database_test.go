@@ -8,6 +8,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+// XXXTestConnection ...
 func XXXTestConnection(t *testing.T) {
 	config.Init()
 	db, err := NewDatabase("abduld")

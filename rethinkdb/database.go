@@ -14,6 +14,7 @@ type rethinkDatabase struct {
 	opts         database.Options
 }
 
+// NewDatabase ...
 func NewDatabase(databaseName string, opts ...database.Option) (database.Database, error) {
 	pass := Config.Password
 	if pass == "" {
@@ -77,18 +78,22 @@ func NewDatabase(databaseName string, opts ...database.Option) (database.Databas
 	}, nil
 }
 
+// Session ...
 func (conn *rethinkDatabase) Session() interface{} {
 	return conn.session
 }
 
+// Options ...
 func (conn *rethinkDatabase) Options() database.Options {
 	return conn.opts
 }
 
+// Close ...
 func (conn *rethinkDatabase) Close() error {
 	return conn.session.Close()
 }
 
+// String ...
 func (conn *rethinkDatabase) String() string {
 	return "RethinkDB"
 }

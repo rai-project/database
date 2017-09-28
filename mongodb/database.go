@@ -15,6 +15,7 @@ type mongoDatabase struct {
 	opts         database.Options
 }
 
+// NewDatabase ...
 func NewDatabase(databaseName string, opts ...database.Option) (database.Database, error) {
 	options := database.Options{
 		Endpoints:      Config.Endpoints,
@@ -47,18 +48,22 @@ func NewDatabase(databaseName string, opts ...database.Option) (database.Databas
 	}, nil
 }
 
+// Session ...
 func (conn *mongoDatabase) Session() interface{} {
 	return conn.session
 }
 
+// Options ...
 func (conn *mongoDatabase) Options() database.Options {
 	return conn.opts
 }
 
+// Close ...
 func (conn *mongoDatabase) Close() error {
 	return conn.session.Close()
 }
 
+// String ...
 func (conn *mongoDatabase) String() string {
 	return "ql"
 }

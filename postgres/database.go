@@ -17,6 +17,7 @@ type postgresDatabase struct {
 	database.Database
 }
 
+// NewDatabase ...
 func NewDatabase(databaseName string, opts ...database.Option) (database.Database, error) {
 
 	options := database.Options{
@@ -50,6 +51,7 @@ func NewDatabase(databaseName string, opts ...database.Option) (database.Databas
 	return &postgresDatabase{d}, nil
 }
 
+// String ...
 func (conn *postgresDatabase) String() string {
 	return "PostgreSQL"
 }

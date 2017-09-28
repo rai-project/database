@@ -16,6 +16,7 @@ type relationalDatabase struct {
 	connectionURL db.ConnectionURL
 }
 
+// NewDatabase ...
 func NewDatabase(gormDialect string, databaseName string, connectionURL db.ConnectionURL, opts database.Options) (database.Database, error) {
 	c, err := gorm.Open(gormDialect, connectionURL.String())
 	if err != nil {
@@ -34,18 +35,22 @@ func NewDatabase(gormDialect string, databaseName string, connectionURL db.Conne
 	}, nil
 }
 
+// Session ...
 func (conn *relationalDatabase) Session() interface{} {
 	return conn.conn
 }
 
+// Options ...
 func (conn *relationalDatabase) Options() database.Options {
 	return conn.opts
 }
 
+// Close ...
 func (conn *relationalDatabase) Close() error {
 	return conn.conn.Close()
 }
 
+// String ...
 func (conn *relationalDatabase) String() string {
 	return strings.Title(conn.gormDialect)
 }

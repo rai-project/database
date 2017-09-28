@@ -7,10 +7,12 @@ import (
 	"encoding/base64"
 )
 
+// DefaultMaxConnections ...
 var (
 	DefaultMaxConnections = 30
 )
 
+// Options ...
 type Options struct {
 	Endpoints      []string
 	Username       string
@@ -20,20 +22,24 @@ type Options struct {
 	Context        context.Context
 }
 
+// Option ...
 type Option func(*Options)
 
+// Username ...
 func Username(s string) Option {
 	return func(o *Options) {
 		o.Username = s
 	}
 }
 
+// Password ...
 func Password(s string) Option {
 	return func(o *Options) {
 		o.Password = s
 	}
 }
 
+// UsernamePassword ...
 func UsernamePassword(u string, p string) Option {
 	return func(o *Options) {
 		o.Username = u
@@ -41,12 +47,14 @@ func UsernamePassword(u string, p string) Option {
 	}
 }
 
+// Endpoints ...
 func Endpoints(addrs []string) Option {
 	return func(o *Options) {
 		o.Endpoints = addrs
 	}
 }
 
+// TLSCertificate ...
 func TLSCertificate(s string) Option {
 	return func(o *Options) {
 		var roots *x509.CertPool
@@ -67,12 +75,14 @@ func TLSCertificate(s string) Option {
 	}
 }
 
+// TLSConfig ...
 func TLSConfig(t *tls.Config) Option {
 	return func(o *Options) {
 		o.TLSConfig = t
 	}
 }
 
+// MaxConnections ...
 func MaxConnections(n int) Option {
 	return func(o *Options) {
 		o.MaxConnections = n

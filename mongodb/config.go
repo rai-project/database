@@ -18,20 +18,24 @@ type mongodbConfig struct {
 	done            chan struct{} `json:"-" config:"-"`
 }
 
+// Config ...
 var (
 	Config = &mongodbConfig{
 		done: make(chan struct{}),
 	}
 )
 
+// ConfigName ...
 func (mongodbConfig) ConfigName() string {
 	return "MongoDB"
 }
 
+// SetDefaults ...
 func (a *mongodbConfig) SetDefaults() {
 	vipertags.SetDefaults(a)
 }
 
+// Read ...
 func (a *mongodbConfig) Read() {
 	defer close(a.done)
 	vipertags.Fill(a)
@@ -40,14 +44,17 @@ func (a *mongodbConfig) Read() {
 	}
 }
 
+// Wait ...
 func (c mongodbConfig) Wait() {
 	<-c.done
 }
 
+// String ...
 func (c mongodbConfig) String() string {
 	return pp.Sprintln(c)
 }
 
+// Debug ...
 func (c mongodbConfig) Debug() {
 	log.Debug("MongoDB Config = ", c)
 }

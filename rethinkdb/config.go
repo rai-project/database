@@ -19,20 +19,24 @@ type rethinkdbConfig struct {
 	done            chan struct{} `json:"-" config:"-"`
 }
 
+// Config ...
 var (
 	Config = &rethinkdbConfig{
 		done: make(chan struct{}),
 	}
 )
 
+// ConfigName ...
 func (rethinkdbConfig) ConfigName() string {
 	return "RethinkDB"
 }
 
+// SetDefaults ...
 func (a *rethinkdbConfig) SetDefaults() {
 	vipertags.SetDefaults(a)
 }
 
+// Read ...
 func (a *rethinkdbConfig) Read() {
 	defer close(a.done)
 	vipertags.Fill(a)
@@ -47,14 +51,17 @@ func (a *rethinkdbConfig) Read() {
 	}
 }
 
+// Wait ...
 func (c secretConfig) Wait() {
 	<-c.done
 }
 
+// String ...
 func (c rethinkdbConfig) String() string {
 	return pp.Sprintln(c)
 }
 
+// Debug ...
 func (c rethinkdbConfig) Debug() {
 	log.Debug("RethinkDB Config = ", c)
 }

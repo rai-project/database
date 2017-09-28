@@ -18,20 +18,24 @@ type postgresdbConfig struct {
 	done           chan struct{} `json:"-" config:"-"`
 }
 
+// Config ...
 var (
 	Config = &postgresdbConfig{
 		done: make(chan struct{}),
 	}
 )
 
+// ConfigName ...
 func (postgresdbConfig) ConfigName() string {
 	return "PostgreSQL"
 }
 
+// SetDefaults ...
 func (a *postgresdbConfig) SetDefaults() {
 	vipertags.SetDefaults(a)
 }
 
+// Read ...
 func (a *postgresdbConfig) Read() {
 	defer close(a.done)
 	vipertags.Fill(a)
@@ -40,14 +44,17 @@ func (a *postgresdbConfig) Read() {
 	}
 }
 
+// Wait ...
 func (c postgresdbConfig) Wait() {
 	<-c.done
 }
 
+// String ...
 func (c postgresdbConfig) String() string {
 	return pp.Sprintln(c)
 }
 
+// Debug ...
 func (c postgresdbConfig) Debug() {
 	log.Debug("PostgreSQL Config = ", c)
 }

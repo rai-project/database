@@ -18,20 +18,24 @@ type mysqldbConfig struct {
 	done           chan struct{} `json:"-" config:"-"`
 }
 
+// Config ...
 var (
 	Config = &mysqldbConfig{
 		done: make(chan struct{}),
 	}
 )
 
+// ConfigName ...
 func (mysqldbConfig) ConfigName() string {
 	return "MySQL"
 }
 
+// SetDefaults ...
 func (a *mysqldbConfig) SetDefaults() {
 	vipertags.SetDefaults(a)
 }
 
+// Read ...
 func (a *mysqldbConfig) Read() {
 	defer close(a.done)
 	vipertags.Fill(a)
@@ -40,14 +44,17 @@ func (a *mysqldbConfig) Read() {
 	}
 }
 
+// Wait ...
 func (c secretConfig) Wait() {
 	<-c.done
 }
 
+// String ...
 func (c mysqldbConfig) String() string {
 	return pp.Sprintln(c)
 }
 
+// Debug ...
 func (c mysqldbConfig) Debug() {
 	log.Debug("MySQL Config = ", c)
 }

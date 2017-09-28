@@ -13,6 +13,7 @@ type relationalTable struct {
 	tableName string
 }
 
+// NewTable ...
 func NewTable(db database.Database, tableName string) (database.Table, error) {
 	rdb, ok := db.(*relationalDatabase)
 	if !ok {
@@ -25,10 +26,12 @@ func NewTable(db database.Database, tableName string) (database.Table, error) {
 	}, nil
 }
 
+// Name ...
 func (tbl *relationalTable) Name() string {
 	return tbl.tableName
 }
 
+// Create ...
 func (tbl *relationalTable) Create(e interface{}) error {
 	err := tbl.conn.DropTableIfExists(tbl.Name).Error
 	if err != nil {
@@ -37,10 +40,12 @@ func (tbl *relationalTable) Create(e interface{}) error {
 	return tbl.conn.AutoMigrate(e).Error
 }
 
+// Delete ...
 func (tbl *relationalTable) Delete() error {
 	return tbl.conn.DropTableIfExists(tbl.Name).Error
 }
 
+// Insert ...
 func (tbl *relationalTable) Insert(elem interface{}) error {
 	return tbl.conn.Create(elem).Error
 }

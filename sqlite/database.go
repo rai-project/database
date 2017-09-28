@@ -18,6 +18,7 @@ type sqliteDatabase struct {
 	database.Database
 }
 
+// NewDatabase ...
 func NewDatabase(databaseName string, opts ...database.Option) (database.Database, error) {
 
 	options := database.Options{
@@ -42,6 +43,7 @@ func NewDatabase(databaseName string, opts ...database.Option) (database.Databas
 	return &sqliteDatabase{d}, nil
 }
 
+// String ...
 func (conn *sqliteDatabase) String() string {
 	return "SQLite"
 }

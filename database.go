@@ -1,5 +1,6 @@
 package database
 
+// Database ...
 type Database interface {
 	Options() Options
 	Session() interface{}
@@ -7,6 +8,7 @@ type Database interface {
 	String() string
 }
 
+// Table ...
 type Table interface {
 	Name() string
 	Create(e interface{}) error

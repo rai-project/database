@@ -17,6 +17,7 @@ type mysqlDatabase struct {
 	database.Database
 }
 
+// NewDatabase ...
 func NewDatabase(databaseName string, opts ...database.Option) (database.Database, error) {
 	options := database.Options{
 		Endpoints:      Config.Endpoints,
@@ -49,6 +50,7 @@ func NewDatabase(databaseName string, opts ...database.Option) (database.Databas
 	return &mysqlDatabase{d}, nil
 }
 
+// String ...
 func (conn *mysqlDatabase) String() string {
 	return "MySQL"
 }

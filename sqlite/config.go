@@ -14,20 +14,24 @@ type sqlitedbConfig struct {
 	done           chan struct{} `json:"-" config:"-"`
 }
 
+// Config ...
 var (
 	Config = &sqlitedbConfig{
 		done: make(chan struct{}),
 	}
 )
 
+// ConfigName ...
 func (sqlitedbConfig) ConfigName() string {
 	return "SQLite"
 }
 
+// SetDefaults ...
 func (a *sqlitedbConfig) SetDefaults() {
 	vipertags.SetDefaults(a)
 }
 
+// Read ...
 func (a *sqlitedbConfig) Read() {
 	defer close(a.done)
 	vipertags.Fill(a)
@@ -36,14 +40,17 @@ func (a *sqlitedbConfig) Read() {
 	}
 }
 
+// Wait ...
 func (c sqlitedbConfig) Wait() {
 	<-c.done
 }
 
+// String ...
 func (c sqlitedbConfig) String() string {
 	return pp.Sprintln(c)
 }
 
+// Debug ...
 func (c sqlitedbConfig) Debug() {
 	log.Debug("SQLite Config = ", c)
 }

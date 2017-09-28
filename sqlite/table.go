@@ -7,6 +7,7 @@ import (
 	"github.com/rai-project/database/relational"
 )
 
+// NewTable ...
 func NewTable(db database.Database, tableName string) (database.Table, error) {
 	_, ok := db.(*sqliteDatabase)
 	if !ok {
