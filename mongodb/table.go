@@ -4,11 +4,11 @@ import (
 	"errors"
 
 	"github.com/rai-project/database"
-	"upper.io/db.v3/lib/sqlbuilder"
+	"upper.io/db.v3"
 )
 
 type mongoTable struct {
-	session   sqlbuilder.Database
+	session   db.Database
 	dbName    string
 	tableName string
 }
@@ -47,6 +47,6 @@ func (tbl *mongoTable) Delete() error {
 
 // Insert ...
 func (tbl *mongoTable) Insert(elem interface{}) error {
-	_, err := tbl.session.InsertInto(tbl.tableName).Values(elem).Exec()
+	_, err := tbl.session.Collection(tbl.tableName).Insert(elem)
 	return err
 }

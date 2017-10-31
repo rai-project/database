@@ -4,13 +4,12 @@ import (
 	"context"
 
 	"github.com/rai-project/database"
-	"upper.io/db.v3/lib/sqlbuilder"
+	"upper.io/db.v3"
 	"upper.io/db.v3/mongo"
-	"upper.io/db.v3/ql"
 )
 
 type mongoDatabase struct {
-	session      sqlbuilder.Database
+	session      db.Database
 	databaseName string
 	opts         database.Options
 }
@@ -37,7 +36,7 @@ func NewDatabase(databaseName string, opts ...database.Option) (database.Databas
 		Database: databaseName,
 	}
 
-	sess, err := ql.Open(connectionURL)
+	sess, err := mongo.Open(connectionURL)
 	if err != nil {
 		return nil, err
 	}

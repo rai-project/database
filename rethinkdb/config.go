@@ -52,7 +52,7 @@ func (a *rethinkdbConfig) Read() {
 }
 
 // Wait ...
-func (c secretConfig) Wait() {
+func (c rethinkdbConfig) Wait() {
 	<-c.done
 }
 

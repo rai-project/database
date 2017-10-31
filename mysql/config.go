@@ -45,7 +45,7 @@ func (a *mysqldbConfig) Read() {
 }
 
 // Wait ...
-func (c secretConfig) Wait() {
+func (c mysqldbConfig) Wait() {
 	<-c.done
 }
 
