@@ -2,8 +2,11 @@ package mongodb
 
 import (
 	"context"
+	"strings"
 
+	"github.com/rai-project/config"
 	"github.com/rai-project/database"
+	"github.com/rai-project/utils"
 	"upper.io/db.v3"
 	"upper.io/db.v3/mongo"
 )
@@ -29,9 +32,18 @@ func NewDatabase(databaseName string, opts ...database.Option) (database.Databas
 		o(&options)
 	}
 
+	decrypt := func(s string) string {
+		if strings.HasPrefix(s, utils.CryptoHeader) && config.App.Secret != "" {
+			if val, err := utils.DecryptStringBase64(config.App.Secret, s); err == nil {
+				return val
+			}
+		}
+		return s
+	}
+
 	connectionURL := mongo.ConnectionURL{
 		User:     options.Username,
-		Password: options.Password,
+		Password: decrypt(options.Password),
 		Host:     options.Endpoints[0],
 		Database: databaseName,
 	}
