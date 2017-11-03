@@ -64,5 +64,10 @@ func (conn *mongoDatabase) Close() error {
 
 // String ...
 func (conn *mongoDatabase) String() string {
-	return "ql"
+	return "mongodb"
+}
+
+func (s *mongoDatabase) WithCollection(collection string, f func(db.Collection) error) error {
+	c := s.session.Collection(collection)
+	return f(c)
 }
