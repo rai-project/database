@@ -2,6 +2,7 @@ package mongodb
 
 import (
 	"errors"
+	"time"
 
 	"github.com/cenkalti/backoff"
 	"github.com/rai-project/database"
@@ -64,5 +65,9 @@ func (tbl *mongoTable) Insert(elem interface{}) error {
 	insert := func() error {
 		return tbl.insert(elem)
 	}
-	return backoff.Retry(insert, backoff.NewExponentialBackOff())
+	alg := backoff.NewExponentialBackOff()
+	alg.InitialInterval = 10 * time.Millisecond
+	alg.Multiplier = 1.2
+	alg.MaxElapsedTime = 5 * time.Minute
+	return backoff.Retry(insert, alg)
 }
