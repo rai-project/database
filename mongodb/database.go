@@ -49,14 +49,17 @@ func NewDatabase(databaseName string, opts ...database.Option) (database.Databas
 		Database: databaseName,
 	}
 
-	sess, err := mongo.Open(connectionURL)
+	sess := &mongo.Source{
+		Settings: db.NewSettings(),
+	}
+	sess.Settings.SetConnMaxLifetime(5 * time.Hour)
+	sess.Settings.SetMaxIdleConns(options.MaxConnections)
+	sess.Settings.SetMaxOpenConns(options.MaxConnections)
+
+	err := sess.Open(connectionURL)
 	if err != nil {
 		return nil, err
 	}
-
-	sess.SetConnMaxLifetime(5 * time.Hour)
-	sess.SetMaxIdleConns(options.MaxConnections)
-	sess.SetMaxOpenConns(options.MaxConnections)
 
 	return &mongoDatabase{
 		session:      sess,
