@@ -3,6 +3,7 @@ package mongodb
 import (
 	"errors"
 
+	"github.com/cenkalti/backoff"
 	"github.com/rai-project/database"
 	"upper.io/db.v3"
 )
@@ -52,8 +53,16 @@ func (tbl *mongoTable) Delete() error {
 	return tbl.session.Collection(tbl.tableName).Truncate()
 }
 
-// Insert ...
-func (tbl *mongoTable) Insert(elem interface{}) error {
+// insert ...
+func (tbl *mongoTable) insert(elem interface{}) error {
 	_, err := tbl.session.Collection(tbl.tableName).Insert(elem)
 	return err
+}
+
+// Insert ...
+func (tbl *mongoTable) Insert(elem interface{}) error {
+	insert := func() error {
+		return tbl.insert(elem)
+	}
+	return backoff.Retry(insert, backoff.NewExponentialBackOff())
 }
