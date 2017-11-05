@@ -3,6 +3,7 @@ package mongodb
 import (
 	"context"
 	"strings"
+	"time"
 
 	"github.com/rai-project/config"
 	"github.com/rai-project/database"
@@ -52,6 +53,11 @@ func NewDatabase(databaseName string, opts ...database.Option) (database.Databas
 	if err != nil {
 		return nil, err
 	}
+
+	sess.SetConnMaxLifetime(5 * time.Hour)
+	sess.SetMaxIdleConns(options.MaxConnections)
+	sess.SetMaxOpenConns(options.MaxConnections)
+
 	return &mongoDatabase{
 		session:      sess,
 		databaseName: databaseName,
