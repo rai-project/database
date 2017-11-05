@@ -31,8 +31,15 @@ func (tbl *mongoTable) Name() string {
 	return tbl.tableName
 }
 
+func (tbl *mongoTable) Exists() bool {
+	return tbl.session.Collection(tbl.tableName).Exists()
+}
+
 // Create ...
 func (tbl *mongoTable) Create(e interface{}) error {
+	if tbl.Exists() {
+		return nil
+	}
 	err := tbl.session.Collection(tbl.tableName).Truncate()
 	if err != nil {
 		return err
