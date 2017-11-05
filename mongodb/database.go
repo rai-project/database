@@ -2,6 +2,7 @@ package mongodb
 
 import (
 	"context"
+	"errors"
 	"strings"
 	"time"
 
@@ -31,6 +32,10 @@ func NewDatabase(databaseName string, opts ...database.Option) (database.Databas
 
 	for _, o := range opts {
 		o(&options)
+	}
+
+	if len(options.Endpoints) == 0 {
+		return nil, errors.New("no endpoints found")
 	}
 
 	decrypt := func(s string) string {
