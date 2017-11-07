@@ -1,8 +1,9 @@
 package mongodb
 
 import (
-	"errors"
 	"time"
+
+	"github.com/pkg/errors"
 
 	"github.com/cenkalti/backoff"
 	"github.com/rai-project/database"
@@ -82,6 +83,11 @@ func (tbl *MongoTable) Find(q interface{}, skip int, limit int, result interface
 	return collection.Find(q).Offset(skip).Limit(limit).All(result)
 }
 
-func (ds *MongoTable) FindAll(q interface{}, result interface{}) error {
-	return ds.Find(q, 0, -1, result)
+func (tbl *MongoTable) FindOne(q interface{}, result interface{}) error {
+	collection := tbl.session.Collection(tbl.tableName)
+	return collection.Find(q).One(result)
+}
+
+func (tbl *MongoTable) FindAll(q interface{}, result interface{}) error {
+	return tbl.Find(q, 0, -1, result)
 }
