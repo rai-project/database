@@ -11,7 +11,7 @@ import (
 )
 
 type MongoTable struct {
-	session   db.Database
+	Session   db.Database
 	dbName    string
 	tableName string
 }
@@ -23,7 +23,7 @@ func NewTable(db database.Database, tableName string) (database.Table, error) {
 		return nil, errors.New("invalid database input. Expecting a mongodb database instance")
 	}
 	return &MongoTable{
-		session:   rdb.session,
+		Session:   rdb.session,
 		dbName:    rdb.databaseName,
 		tableName: tableName,
 	}, nil
@@ -35,7 +35,7 @@ func (tbl *MongoTable) Name() string {
 }
 
 func (tbl *MongoTable) Exists() bool {
-	return tbl.session.Collection(tbl.tableName).Exists()
+	return tbl.Session.Collection(tbl.tableName).Exists()
 }
 
 // Create ...
@@ -43,7 +43,7 @@ func (tbl *MongoTable) Create(e interface{}) error {
 	if tbl.Exists() {
 		return nil
 	}
-	err := tbl.session.Collection(tbl.tableName).Truncate()
+	err := tbl.Session.Collection(tbl.tableName).Truncate()
 	if err != nil {
 		return err
 	}
@@ -52,12 +52,12 @@ func (tbl *MongoTable) Create(e interface{}) error {
 
 // Delete ...
 func (tbl *MongoTable) Delete() error {
-	return tbl.session.Collection(tbl.tableName).Truncate()
+	return tbl.Session.Collection(tbl.tableName).Truncate()
 }
 
 // insert ...
 func (tbl *MongoTable) insert(elem interface{}) error {
-	_, err := tbl.session.Collection(tbl.tableName).Insert(elem)
+	_, err := tbl.Session.Collection(tbl.tableName).Insert(elem)
 	return err
 }
 
@@ -75,7 +75,7 @@ func (tbl *MongoTable) Insert(elem interface{}) error {
 
 func (tbl *MongoTable) Find(q interface{}, skip int, limit int, result interface{}) (err error) {
 
-	collection := tbl.session.Collection(tbl.tableName)
+	collection := tbl.Session.Collection(tbl.tableName)
 
 	if limit < 0 {
 		return collection.Find(q).Offset(skip).All(result)
@@ -84,7 +84,7 @@ func (tbl *MongoTable) Find(q interface{}, skip int, limit int, result interface
 }
 
 func (tbl *MongoTable) FindOne(q interface{}, result interface{}) error {
-	collection := tbl.session.Collection(tbl.tableName)
+	collection := tbl.Session.Collection(tbl.tableName)
 	return collection.Find(q).One(result)
 }
 
