@@ -27,7 +27,6 @@ import:
   - postgresql
   - ql
   - sqlite
-testImport:
 - package: github.com/stretchr/testify
   subpackages:
   - assert
