@@ -198,7 +198,7 @@
   branch = "master"
   name = "github.com/rai-project/config"
   packages = ["."]
-  revision = "c84109ab2515e922a25930ea437d20d2e86d1840"
+  revision = "b8a1f9848ca2a4288fa28f2f456ea4683069566a"
 
 [[projects]]
   branch = "master"
@@ -210,19 +210,19 @@
   branch = "master"
   name = "github.com/rai-project/logger"
   packages = ["."]
-  revision = "87ef1d21520e8fc2ba204a431318d27a6606ca0a"
+  revision = "127c980833b2e3f43e5cb8cfb669d9a8060a89ce"
 
 [[projects]]
   branch = "master"
   name = "github.com/rai-project/utils"
   packages = ["."]
-  revision = "1660f4e6c5178a88d71a942ca6e5a5796e035c4e"
+  revision = "7cc954f4f45db4d1af4ad4ff449accedc68f5774"
 
 [[projects]]
   branch = "master"
   name = "github.com/rai-project/vipertags"
   packages = ["."]
-  revision = "1b2055ebed224c84d28b34112454ba8b7cc4d491"
+  revision = "92806c8ec658b5bc4ef66f6e51f835937a9e616e"
 
 [[projects]]
   name = "github.com/sirupsen/logrus"
@@ -310,7 +310,7 @@
   branch = "master"
   name = "golang.org/x/net"
   packages = ["context"]
-  revision = "afe8f62b1d6bbd81f31868121a50b06d8188e1f9"
+  revision = "32a936f46389aa10549d60bd7833e54b01685d09"
 
 [[projects]]
   branch = "master"
@@ -319,7 +319,7 @@
     "unix",
     "windows"
   ]
-  revision = "ad87a3a340fa7f3bed189293fbfa7a9b7e021ae1"
+  revision = "3c6ecd8f22c6f40fbeec94c000a069d7d87c7624"
 
 [[projects]]
   name = "golang.org/x/text"
@@ -372,7 +372,7 @@
     "internal/sasl",
     "internal/scram"
   ]
-  revision = "3f83fa5005286a7fe593b055f0d7771a7dce4655"
+  revision = "9856a29383ce1c59f308dd1cf0363a79b5bef6b5"
 
 [[projects]]
   name = "gopkg.in/yaml.v2"
