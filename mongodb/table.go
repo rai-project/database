@@ -63,13 +63,14 @@ func (tbl *MongoTable) insert(elem interface{}) error {
 
 // Insert ...
 func (tbl *MongoTable) Insert(elem interface{}) error {
+
 	insert := func() error {
 		return tbl.insert(elem)
 	}
 	alg := backoff.NewExponentialBackOff()
 	alg.InitialInterval = 10 * time.Millisecond
 	alg.Multiplier = 1.2
-	alg.MaxElapsedTime = 5 * time.Minute
+	alg.MaxElapsedTime = time.Minute
 	return backoff.Retry(insert, alg)
 }
 
