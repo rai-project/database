@@ -303,8 +303,8 @@
   name = "github.com/sirupsen/logrus"
   packages = ["."]
   pruneopts = "UT"
-  revision = "ad15b42461921f1fb3529b058c6786c6a45d5162"
-  version = "v1.1.1"
+  revision = "bcd833dfe83d3cebad139e4a29ed79cb2318bf95"
+  version = "v1.2.0"
 
 [[projects]]
   digest = "0:"
@@ -350,7 +350,7 @@
     "remote",
   ]
   pruneopts = "UT"
-  revision = "62edee319679b6ceaec16de03b966102d2dea709"
+  revision = "b7a3b954760cf2c8e97dbcf7f842e721b8d24110"
 
 [[projects]]
   digest = "1:18752d0b95816a1b777505a97f71c7467a8445b8ffb55631a7bf779f6ba4fa83"
@@ -398,7 +398,7 @@
     "ssh/terminal",
   ]
   pruneopts = "UT"
-  revision = "e84da0312774c21d64ee2317962ef669b27ffb41"
+  revision = "e4dc69e5b2fd71dcaf8bd5d054eb936deb78d1fa"
 
 [[projects]]
   branch = "master"
@@ -406,7 +406,7 @@
   name = "golang.org/x/net"
   packages = ["context"]
   pruneopts = "UT"
-  revision = "9b4f9f5ad5197c79fd623a3638e70d8b26cef344"
+  revision = "10aee181995363b41f712a55844a0dd52ea04646"
 
 [[projects]]
   branch = "master"
@@ -417,7 +417,7 @@
     "windows",
   ]
   pruneopts = "UT"
-  revision = "95b1ffbd15a57cc5abb3f04402b9e8ec0016a52c"
+  revision = "3a76605856fddce5718553cbb8bd50ca492a7274"
 
 [[projects]]
   digest = "1:8029e9743749d4be5bc9f7d42ea1659471767860f0cdc34d37c3111bd308a295"
@@ -439,8 +439,8 @@
   name = "google.golang.org/appengine"
   packages = ["cloudsql"]
   pruneopts = "UT"
-  revision = "ae0ab99deb4dc413a2b4bd6c8bdd0eb67f1e4d06"
-  version = "v1.2.0"
+  revision = "4a4468ece617fc8205e99368fa2200e9d1fad421"
+  version = "v1.3.0"
 
 [[projects]]
   digest = "1:7953c0a855b86fdc6beeaff770756c3e8088d2b57c35b22e388481e5d19fd16f"
