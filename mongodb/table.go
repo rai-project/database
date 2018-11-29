@@ -63,7 +63,6 @@ func (tbl *MongoTable) insert(elem interface{}) error {
 
 // Insert ...
 func (tbl *MongoTable) Insert(elem interface{}) error {
-
 	insert := func() error {
 		return tbl.insert(elem)
 	}

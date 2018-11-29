@@ -9,6 +9,7 @@ import (
 	"github.com/rai-project/config"
 	"github.com/rai-project/database"
 	"github.com/rai-project/utils"
+	"gopkg.in/mgo.v2"
 	"upper.io/db.v3"
 	"upper.io/db.v3/mongo"
 )
@@ -17,6 +18,18 @@ type mongoDatabase struct {
 	session      db.Database
 	databaseName string
 	opts         database.Options
+}
+
+type defaultLogger struct {
+}
+
+func (lg *defaultLogger) Log(m *db.QueryStatus) {
+	log.Printf("\n\t%s\n\n", strings.Replace(m.String(), "\n", "\n\t", -1))
+}
+
+func (lg *defaultLogger) Output(calldepth int, s string) error {
+	log.Printf("%s\n", s)
+	return nil
 }
 
 // NewDatabase ...
@@ -60,6 +73,12 @@ func NewDatabase(databaseName string, opts ...database.Option) (database.Databas
 	sess.Settings.SetConnMaxLifetime(5 * time.Hour)
 	sess.Settings.SetMaxIdleConns(options.MaxConnections)
 	sess.Settings.SetMaxOpenConns(options.MaxConnections)
+
+	if debug {
+		sess.Settings.SetLogging(true)
+		sess.Settings.SetLogger(&defaultLogger{})
+		mgo.SetLogger(&defaultLogger{})
+	}
 
 	err := sess.Open(connectionURL)
 	if err != nil {
