@@ -20,14 +20,14 @@ type mongoDatabase struct {
 	opts         database.Options
 }
 
-type defaultLogger struct {
+type debugLogger struct {
 }
 
-func (lg *defaultLogger) Log(m *db.QueryStatus) {
+func (lg *debugLogger) Log(m *db.QueryStatus) {
 	log.Printf("\n\t%s\n\n", strings.Replace(m.String(), "\n", "\n\t", -1))
 }
 
-func (lg *defaultLogger) Output(calldepth int, s string) error {
+func (lg *debugLogger) Output(calldepth int, s string) error {
 	log.Printf("%s\n", s)
 	return nil
 }
@@ -76,8 +76,8 @@ func NewDatabase(databaseName string, opts ...database.Option) (database.Databas
 
 	if debug {
 		sess.Settings.SetLogging(true)
-		sess.Settings.SetLogger(&defaultLogger{})
-		mgo.SetLogger(&defaultLogger{})
+		sess.Settings.SetLogger(&debugLogger{})
+		mgo.SetLogger(&debugLogger{})
 	}
 
 	err := sess.Open(connectionURL)
