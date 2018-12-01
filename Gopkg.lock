@@ -26,12 +26,12 @@
   revision = "eb2c6b5be1b66bab83016e0b05f01b8d5496ffbd"
 
 [[projects]]
-  digest = "1:2209584c0f7c9b68c23374e659357ab546e1b70eec2761f03280f69a8fd23d77"
+  digest = "0:"
   name = "github.com/cenkalti/backoff"
   packages = ["."]
   pruneopts = "UT"
-  revision = "2ea60e5f094469f9e65adb9cd103795b73ae743e"
-  version = "v2.0.0"
+  revision = "62661b46c4093e2c1f38d943e663db1a29873e80"
+  version = "v2.1.0"
 
 [[projects]]
   digest = "0:"
@@ -96,12 +96,12 @@
   version = "v1.4.7"
 
 [[projects]]
-  digest = "1:adea5a94903eb4384abef30f3d878dc9ff6b6b5b0722da25b82e5169216dfb61"
+  digest = "0:"
   name = "github.com/go-sql-driver/mysql"
   packages = ["."]
   pruneopts = "UT"
-  revision = "d523deb1b23d913de5bdada721a6071e71283618"
-  version = "v1.4.0"
+  revision = "72cd26f257d44c1114970e19afddcd812016007e"
+  version = "v1.4.1"
 
 [[projects]]
   digest = "0:"
@@ -139,7 +139,7 @@
   version = "v1.0.0"
 
 [[projects]]
-  digest = "1:d9fc76d096b2c7a459e53e748185b5766f37b9f8bd40aecbe212d4556ce12829"
+  digest = "0:"
   name = "github.com/jinzhu/gorm"
   packages = [
     ".",
@@ -147,8 +147,8 @@
     "dialects/postgres",
   ]
   pruneopts = "UT"
-  revision = "6ed508ec6a4ecb3531899a69cbc746ccf65a4166"
-  version = "v1.9.1"
+  revision = "472c70caa40267cb89fd8facb07fe6454b578626"
+  version = "v1.9.2"
 
 [[projects]]
   branch = "master"
@@ -264,7 +264,7 @@
   name = "github.com/rai-project/config"
   packages = ["."]
   pruneopts = "UT"
-  revision = "628ac79ac6e3bc58c01dc06e9c2fd0220094ed32"
+  revision = "4d0de45fe6c1a55b23670fb8d402451709cf21ba"
 
 [[projects]]
   branch = "master"
@@ -280,7 +280,7 @@
   name = "github.com/rai-project/logger"
   packages = ["."]
   pruneopts = "UT"
-  revision = "1489285c3ccf666d2983e3746486db940813c60d"
+  revision = "3edfaed4af1c2be49ae65399a82fab15780e6549"
 
 [[projects]]
   branch = "master"
@@ -288,7 +288,7 @@
   name = "github.com/rai-project/utils"
   packages = ["."]
   pruneopts = "UT"
-  revision = "6708a9c28d4e0c3c6bd19213f4920a16f43865d4"
+  revision = "be23e9dad62b9c5de665f502450144abd61d31a6"
 
 [[projects]]
   branch = "master"
@@ -296,7 +296,7 @@
   name = "github.com/rai-project/vipertags"
   packages = ["."]
   pruneopts = "UT"
-  revision = "8dc2a1a8a7a32a0a2d482d545cc579e5fe839356"
+  revision = "8cbaab517f5d43e2d0bb7f1b237a0dfdc551cc81"
 
 [[projects]]
   digest = "0:"
@@ -350,7 +350,7 @@
     "remote",
   ]
   pruneopts = "UT"
-  revision = "b7a3b954760cf2c8e97dbcf7f842e721b8d24110"
+  revision = "06c7c0d9b3c7cfca13deff6e353a052e08828ad4"
 
 [[projects]]
   digest = "1:18752d0b95816a1b777505a97f71c7467a8445b8ffb55631a7bf779f6ba4fa83"
@@ -398,7 +398,7 @@
     "ssh/terminal",
   ]
   pruneopts = "UT"
-  revision = "e4dc69e5b2fd71dcaf8bd5d054eb936deb78d1fa"
+  revision = "eb0de9b17e854e9b1ccd9963efafc79862359959"
 
 [[projects]]
   branch = "master"
@@ -406,7 +406,7 @@
   name = "golang.org/x/net"
   packages = ["context"]
   pruneopts = "UT"
-  revision = "10aee181995363b41f712a55844a0dd52ea04646"
+  revision = "351d144fa1fc0bd934e2408202be0c29f25e35a0"
 
 [[projects]]
   branch = "master"
@@ -417,7 +417,7 @@
     "windows",
   ]
   pruneopts = "UT"
-  revision = "3a76605856fddce5718553cbb8bd50ca492a7274"
+  revision = "4ed8d59d0b35e1e29334a206d1b3f38b1e5dfb31"
 
 [[projects]]
   digest = "1:8029e9743749d4be5bc9f7d42ea1659471767860f0cdc34d37c3111bd308a295"
@@ -485,12 +485,12 @@
   revision = "9856a29383ce1c59f308dd1cf0363a79b5bef6b5"
 
 [[projects]]
-  digest = "1:342378ac4dcb378a5448dd723f0784ae519383532f5e70ade24132c4c8693202"
+  digest = "0:"
   name = "gopkg.in/yaml.v2"
   packages = ["."]
   pruneopts = "UT"
-  revision = "5420a8b6744d3b0345ab293f6fcba19c978f1183"
-  version = "v2.2.1"
+  revision = "51d6538a90f86fe93ac480b35f37b2be17fef232"
+  version = "v2.2.2"
 
 [[projects]]
   digest = "0:"
@@ -531,6 +531,7 @@
     "github.com/sirupsen/logrus",
     "github.com/stretchr/testify/assert",
     "gopkg.in/dancannon/gorethink.v3",
+    "gopkg.in/mgo.v2",
     "upper.io/db.v3",
     "upper.io/db.v3/mongo",
     "upper.io/db.v3/mysql",
