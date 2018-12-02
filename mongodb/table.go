@@ -77,10 +77,21 @@ func (tbl *MongoTable) Find(q interface{}, skip int, limit int, result interface
 
 	collection := tbl.Session.Collection(tbl.tableName)
 
-	if limit < 0 {
-		return collection.Find(q).Offset(skip).All(result)
+	var res db.Result
+	if q == nil {
+		res = collection.Find()
+	} else {
+		res = collection.Find(q)
 	}
-	return collection.Find(q).Offset(skip).Limit(limit).All(result)
+
+	if skip != 0 {
+		res = res.Offset(skip)
+	}
+
+	if limit > 0 {
+		res = res.Limit(limit)
+	}
+	return res.All(result)
 }
 
 func (tbl *MongoTable) FindOne(q interface{}, result interface{}) error {
