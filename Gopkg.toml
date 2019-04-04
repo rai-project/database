@@ -71,7 +71,7 @@
 
 [[constraint]]
   name = "upper.io/db.v3"
-  version = "3.5.3"
+  version = "3.5.7"
 
 [prune]
   go-tests = true
