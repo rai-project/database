@@ -5,6 +5,7 @@ import (
 	"errors"
 	"strings"
 	"time"
+	"unsafe"
 
 	"gopkg.in/mgo.v2"
 	"upper.io/db.v3"
@@ -36,12 +37,13 @@ func (lg *debugLogger) Output(calldepth int, s string) error {
 // NewDatabase ...
 func NewDatabase(databaseName string, opts ...database.Option) (database.Database, error) {
 	options := database.Options{
-		Endpoints:      Config.Endpoints,
-		Username:       Config.Username,
-		Password:       Config.Password,
-		TLSConfig:      nil,
-		MaxConnections: Config.MaxConnections,
-		Context:        context.Background(),
+		Endpoints:         Config.Endpoints,
+		Username:          Config.Username,
+		Password:          Config.Password,
+		TLSConfig:         nil,
+		MaxConnections:    Config.MaxConnections,
+		ConnectionTimeout: database.DefaultConnectionTimeout,
+		Context:           context.Background(),
 	}
 
 	for _, o := range opts {
@@ -60,7 +62,7 @@ func NewDatabase(databaseName string, opts ...database.Option) (database.Databas
 		}
 		return s
 	}
-	sess := &mongo.Source{
+	sess := &source{
 		Settings: db.NewSettings(),
 	}
 	sess.Settings.SetConnMaxLifetime(5 * time.Hour)
@@ -81,13 +83,16 @@ func NewDatabase(databaseName string, opts ...database.Option) (database.Databas
 		Database: databaseName,
 	}
 
-	err := sess.Open(connectionURL)
+	err := sess.Open(connectionURL, options.ConnectionTimeout)
 	if err != nil {
 		return nil, err
 	}
 
+	sess.session.SetSyncTimeout(time.Minute)
+	sess.session.SetSocketTimeout(time.Minute)
+
 	return &mongoDatabase{
-		session:      sess,
+		session:      (*mongo.Source)(unsafe.Pointer(sess)),
 		databaseName: databaseName,
 		opts:         options,
 	}, nil

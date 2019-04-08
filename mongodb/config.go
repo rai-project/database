@@ -1,6 +1,8 @@
 package mongodb
 
 import (
+	"time"
+
 	"github.com/k0kubun/pp"
 	"github.com/rai-project/config"
 	"github.com/rai-project/database"
@@ -8,14 +10,15 @@ import (
 )
 
 type mongodbConfig struct {
-	Provider        string        `json:"provider" config:"database.provider"`
-	Endpoints       []string      `json:"endpoints" config:"database.endpoints"`
-	Username        string        `json:"username" config:"database.username"`
-	Password        string        `json:"password" config:"database.password"`
-	Cert            string        `json:"cert" config:"database.cert"`
-	InitialCapacity int           `json:"initial_capacity" config:"database.initial_capacity" default:"0"`
-	MaxConnections  int           `json:"max_connections" config:"database.max_connections" default:"0"`
-	done            chan struct{} `json:"-" config:"-"`
+	Provider          string        `json:"provider" config:"database.provider"`
+	Endpoints         []string      `json:"endpoints" config:"database.endpoints"`
+	Username          string        `json:"username" config:"database.username"`
+	Password          string        `json:"password" config:"database.password"`
+	Cert              string        `json:"cert" config:"database.cert"`
+	InitialCapacity   int           `json:"initial_capacity" config:"database.initial_capacity" default:"0"`
+	MaxConnections    int           `json:"max_connections" config:"database.max_connections" default:"0"`
+	ConnectionTimeout time.Duration `json:"connection_timeout" config:"database.connection_timeout" `
+	done              chan struct{} `json:"-" config:"-"`
 }
 
 // Config ...
@@ -41,6 +44,9 @@ func (a *mongodbConfig) Read() {
 	vipertags.Fill(a)
 	if a.MaxConnections == 0 {
 		a.MaxConnections = 2 * database.DefaultMaxConnections
+	}
+	if a.ConnectionTimeout == 0 {
+		a.ConnectionTimeout = database.DefaultConnectionTimeout
 	}
 }
 

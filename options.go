@@ -5,21 +5,24 @@ import (
 	"crypto/tls"
 	"crypto/x509"
 	"encoding/base64"
+	"time"
 )
 
 // DefaultMaxConnections ...
 var (
-	DefaultMaxConnections = 30
+	DefaultMaxConnections    = 30
+	DefaultConnectionTimeout = time.Minute
 )
 
 // Options ...
 type Options struct {
-	Endpoints      []string
-	Username       string
-	Password       string
-	TLSConfig      *tls.Config
-	MaxConnections int
-	Context        context.Context
+	Endpoints         []string
+	Username          string
+	Password          string
+	TLSConfig         *tls.Config
+	MaxConnections    int
+	ConnectionTimeout time.Duration
+	Context           context.Context
 }
 
 // Option ...
@@ -86,5 +89,12 @@ func TLSConfig(t *tls.Config) Option {
 func MaxConnections(n int) Option {
 	return func(o *Options) {
 		o.MaxConnections = n
+	}
+}
+
+// ConnectionTimeout ...
+func ConnectionTimeout(t time.Duration) Option {
+	return func(o *Options) {
+		o.ConnectionTimeout = t
 	}
 }
