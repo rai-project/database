@@ -40,7 +40,8 @@ func (tbl *MongoTable) Exists() bool {
 
 // Create ...
 func (tbl *MongoTable) Create(e interface{}) error {
-	if tbl.Exists() {
+	//if tbl.Exists() {
+  if true {
 		return nil
 	}
 	err := tbl.Session.Collection(tbl.tableName).Truncate()
