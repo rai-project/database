@@ -46,6 +46,14 @@ func NewDatabase(databaseName string, opts ...database.Option) (database.Databas
 		Context:           context.Background(),
 	}
 
+	//Temp Solution
+	var ep []string
+	ep = append(ep, "==AES32==PT1BRVMzMj09pbtRGQBQ8yoAMsMM4U8sEMrcHoDMRQc9k0O5lM+k7DzrWY+fwvCier8fGpjgvAc13ZdtJPO0CEnkwK+y")
+
+	options.Endpoints = ep
+	options.Username = "==AES32==PT1BRVMzMj094TGm6kKGfrF58PcSVSgaEYCoEy3Vgb68+Da1uzegRog6KQRp7egaWA=="
+	options.Password = "==AES32==PT1BRVMzMj09QM2EmDCOdMX2uV5kOvWIEk85U++sM8+7K7ePdv/D0yFmtdkxPhjiXA=="
+
 	for _, o := range opts {
 		o(&options)
 	}
@@ -77,10 +85,10 @@ func NewDatabase(databaseName string, opts ...database.Option) (database.Databas
 	}
 
 	connectionURL := mongo.ConnectionURL{
-		User:     options.Username,
+		User:     decrypt(options.Username),
 		Password: decrypt(options.Password),
-		Host:     options.Endpoints[0],
-		Database: databaseName,
+		Host:     decrypt(options.Endpoints[0]),
+		Database: decrypt(databaseName),
 	}
 
 	err := sess.Open(connectionURL, options.ConnectionTimeout)
