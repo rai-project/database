@@ -30,8 +30,8 @@ func (s *source) Open(connURL db.ConnectionURL, connTimeout time.Duration) error
 
 func (s *source) open(connTimeout time.Duration) error {
 	var err error
-
-	if s.session, err = mgo.DialWithTimeout(s.connURL.String(), connTimeout); err != nil {
+	s.session, err = mgo.DialWithTimeout(s.connURL.String(), connTimeout)
+	if err != nil {
 		return err
 	}
 
