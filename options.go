@@ -10,8 +10,8 @@ import (
 
 // DefaultMaxConnections ...
 var (
-	DefaultMaxConnections    = 30
-	DefaultConnectionTimeout = 10 * time.Second
+	DefaultMaxConnections    = 60
+	DefaultConnectionTimeout = 20 * time.Second
 )
 
 // Options ...
