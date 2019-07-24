@@ -69,7 +69,7 @@ func NewDatabase(databaseName string, opts ...database.Option) (database.Databas
 	sess.Settings.SetMaxIdleConns(options.MaxConnections)
 	sess.Settings.SetMaxOpenConns(options.MaxConnections)
 
-	if true {
+	if debug {
 		sess.Settings.SetLogging(true)
 		sess.Settings.SetLogger(&debugLogger{})
 		mgo.SetLogger(&debugLogger{})
